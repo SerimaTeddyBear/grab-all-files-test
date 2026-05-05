@@ -153,7 +153,7 @@
 |---|---|---|
 | `pages/01-basic.html` | 18 | 全拡張子カテゴリの基本リンク |
 | `pages/02-images.html` | 14+ | lazy / srcset / picture / CSS background |
-| `pages/03-embeds.html` | 8 | iframe / embed / object / video / audio / track |
+| `pages/03-embeds.html` | 8 | iframe / embed / object |
 | `pages/04-data-attrs.html` | 25+ | 全 25 種の data-* 属性 |
 | `pages/05-meta-and-script.html` | 30+ | OGP/Twitter/citation + pdfUrl 17 キー |
 | `pages/06-forms-and-hidden.html` | 5 (＋除外2) | POST フォーム検出 |
@@ -163,7 +163,6 @@
 | `pages/10-all-extensions.html` | 225 | 全対応拡張子 |
 | `pages/11-platform-mocks.html` | 12+ | Gmail/Yahoo/Outlook/Salesforce |
 | `pages/12-pdfjs-viewer.html` | 30+ | PDF.js viewer URL パターン |
-| `pages/13-streaming.html` | 25+ | HLS/DASH/Stream/OneDrive |
 | `pages/14-magic-bytes.html` | 6 | 拡張子ミスマッチ判定 |
 | `pages/15-css-scanning.html` | 15+ | image-set / border-image / @font-face |
 
@@ -180,8 +179,6 @@
 | `data-pdf-url` | `"pdf"` |
 | `data-zoom-image` / `data-thumbnail` / `data-bg` 等 | `"jpg"` |
 | `meta og:image` | `"jpg"` |
-| `meta og:video` / `twitter:player:stream` | `"mp4"` |
-| `meta og:audio` | `"mp3"` |
 | `meta citation_pdf_url` | `"pdf"` |
 
 `stats.by_type_hint` の分布を `pages/04-data-attrs.html` / `pages/05-meta-and-script.html` で検証。

@@ -2,13 +2,14 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>03. 埋め込み — Grab All Files テスト</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 <div class="wrap">
-  <header class="site"><h1>03. 埋め込み（iframe / embed / video / audio）</h1></header>
+  <header class="site"><h1>03. 埋め込み（iframe / embed / object）</h1></header>
   <nav class="top"><a href="../index.html">← トップ</a></nav>
 
   <h2>iframe による PDF 埋め込み</h2>
@@ -29,19 +30,3 @@
       <a href="../files/sample-1.pdf">PDF を開く</a>
     </object>
   </p>
-
-  <h2><code>&lt;video&gt;</code> + 字幕</h2>
-  <video controls width="320" poster="../files/sample.jpg">
-    <source src="../files/sample.mp4" type="video/mp4">
-    <track src="../files/sample.txt" kind="subtitles" srclang="ja" label="日本語">
-    お使いのブラウザは video タグに対応していません。
-  </video>
-
-  <h2><code>&lt;audio&gt;</code></h2>
-  <audio controls>
-    <source src="../files/sample.mp3" type="audio/mpeg">
-    <source src="../files/sample.wav" type="audio/wav">
-  </audio>
-</div>
-</body>
-</html>

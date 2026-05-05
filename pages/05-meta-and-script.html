@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>05. メタタグ・インラインスクリプト — Grab All Files テスト</title>
 <link rel="stylesheet" href="../assets/style.css">
@@ -12,18 +13,12 @@
 <meta property="og:image" content="../files/sample.png">
 <meta property="og:image:url" content="../files/sample.jpg">
 <meta property="og:image:secure_url" content="../files/sample.webp">
-<meta property="og:video" content="../files/sample.mp4">
-<meta property="og:video:url" content="../files/sample.webm">
-<meta property="og:video:secure_url" content="../files/sample.mov">
-<meta property="og:audio" content="../files/sample.mp3">
 
 <!-- Twitter Card -->
 <meta name="twitter:image" content="../files/sample.png">
 <meta name="twitter:image:src" content="../files/sample.jpg">
-<meta name="twitter:player:stream" content="../files/sample.mp4">
 <meta property="twitter:image" content="../files/sample.gif">
 <meta property="twitter:image:src" content="../files/sample.webp">
-<meta property="twitter:player:stream" content="../files/sample.webm">
 
 <!-- 学術論文 (citation_*) -->
 <meta name="citation_pdf_url" content="../files/sample-1.pdf">
@@ -37,18 +32,13 @@
 
   <div class="note">
     head の OGP / Twitter Card / citation_pdf_url（合計 14 種類）と、ページ末尾のインラインスクリプトに埋め込まれた
-    PDF / 画像の URL（17 種のキー）を検出します。属性名に <code>pdf</code>, <code>image|player</code>,
-    <code>video</code>, <code>audio</code> が含まれるとタイプヒントが付与されます。
+    PDF / 画像の URL（17 種のキー）を検出します。属性名に <code>pdf</code>, <code>image</code>,
   </div>
 
   <h2>定義済みメタタグ一覧</h2>
   <ul class="files">
     <li><code>og:url</code> → sample.html</li>
     <li><code>og:image</code> / <code>og:image:url</code> / <code>og:image:secure_url</code></li>
-    <li><code>og:video</code> / <code>og:video:url</code> / <code>og:video:secure_url</code></li>
-    <li><code>og:audio</code></li>
-    <li><code>twitter:image</code> / <code>twitter:image:src</code> / <code>twitter:player:stream</code> (name属性)</li>
-    <li><code>twitter:image</code> / <code>twitter:image:src</code> / <code>twitter:player:stream</code> (property属性)</li>
     <li><code>citation_pdf_url</code></li>
   </ul>
 
@@ -112,29 +102,11 @@
         "../files/sample.pptx",
         "../files/sample.zip",
         "../files/sample.rar"
-      ],
-      mediaItems: {
-        primary:    "../files/sample.mp4",
-        secondary:  "../files/sample.mov",
-        thumbnail:  "../files/sample.jpg"
-      }
+      ]
     };
   </script>
 
   <h2>JSON-LD (schema.org)</h2>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "MediaObject",
-    "name": "サンプルメディア",
-    "contentUrl": "../files/sample.mp3",
-    "thumbnailUrl": "../files/sample.png",
-    "encoding": [
-      { "@type": "MediaObject", "contentUrl": "../files/sample.flac" },
-      { "@type": "MediaObject", "contentUrl": "../files/sample.opus" }
-    ]
-  }
-  </script>
 
   <script type="application/ld+json">
   {
