@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>13. 動画 / 音声 / SVG / 短縮 data-* — Grab All Files テスト</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site"><h1>13. 動画 / 音声 / SVG / 短縮 data-*</h1></header>
+  <nav class="top"><a href="../index.html">← トップ</a></nav>
+
+  <div class="note">
+    2026-05-06 追加機能の検証フィクスチャ。<code>&lt;video&gt;</code> / <code>&lt;audio&gt;</code> /
+    <code>&lt;source&gt;</code> / <code>&lt;track&gt;</code> / SVG <code>&lt;image&gt;</code> /
+    <code>&lt;use&gt;</code> と、画像系 data-* 短縮形 10 種、メディア系 data-* 3 種をカバーします。
+    <strong>期待検出ユニーク URL: 14 件</strong>（同一ファイルを複数経路で参照しているので重複排除後の件数）。
+    <strong>除外確認</strong>: <code>&lt;use href="#inline-sprite"&gt;</code> のインライン #fragment 参照は検出されないこと。
+  </div>
+
+  <h2>① &lt;video&gt; 要素（src / source / track / poster）</h2>
+  <ul class="files">
+    <li><strong>video[src] 直接参照</strong>:
+      <video src="../files/sample.mp4" controls width="160" preload="none"></video>
+    </li>
+    <li><strong>video + 複数 source（mp4 / webm / ogv）+ track 字幕 + poster</strong>:
+      <video controls poster="../files/sample.png" width="160" preload="none">
+        <source src="../files/sample.mp4" type="video/mp4">
+        <source src="../files/sample.webm" type="video/webm">
+        <source src="../files/sample.ogv" type="video/ogg">
+        <track src="../files/sample.vtt" kind="subtitles" srclang="ja" label="日本語">
+      </video>
+    </li>
+  </ul>
+
+  <h2>② &lt;audio&gt; 要素（src / source 5 MIME）</h2>
+  <ul class="files">
+    <li><strong>audio[src] 直接参照</strong>:
+      <audio src="../files/sample.mp3" controls preload="none"></audio>
+    </li>
+    <li><strong>audio + 複数 source（mp3 / ogg / wav / m4a / flac）</strong>:
+      <audio controls preload="none">
+        <source src="../files/sample.mp3" type="audio/mpeg">
+        <source src="../files/sample.ogg" type="audio/ogg">
+        <source src="../files/sample.wav" type="audio/wav">
+        <source src="../files/sample.m4a" type="audio/mp4">
+        <source src="../files/sample.flac" type="audio/flac">
+      </audio>
+    </li>
+  </ul>
+
+  <h2>③ SVG &lt;image&gt; / &lt;use&gt; 外部参照</h2>
+  <p>外部 SVG への参照（modern <code>href</code> と legacy <code>xlink:href</code> 両方）。
+     <code>&lt;use href="#inline-sprite"&gt;</code> は同一ドキュメント内 fragment なので<strong>検出されません</strong>。</p>
+  <svg width="240" height="80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+       style="border:1px solid #888">
+    <image href="../files/sample.svg" x="0" y="0" width="40" height="40"/>
+    <image xlink:href="../files/sample.svgz" x="50" y="0" width="40" height="40"/>
+    <use href="../files/sample.svg#sprite-a" x="100" y="0"/>
+    <use xlink:href="../files/sample.svgz#sprite-b" x="150" y="0"/>
+    <defs><symbol id="inline-sprite"><circle r="10" fill="orange"/></symbol></defs>
+    <use href="#inline-sprite" x="210" y="20"/>
+  </svg>
+
+  <h2>④ 画像系 data-* 短縮形（10種）</h2>
+  <ul class="files">
+    <li><div class="card" data-poster="../files/sample.jpg">data-poster</div></li>
+    <li><div class="card" data-pic="../files/sample.png">data-pic</div></li>
+    <li><div class="card" data-photo="../files/sample.jpg">data-photo</div></li>
+    <li><div class="card" data-icon="../files/sample.svg">data-icon</div></li>
+    <li><div class="card" data-cover="../files/sample.webp">data-cover</div></li>
+    <li><div class="card" data-cover-image="../files/sample.png">data-cover-image</div></li>
+    <li><div class="card" data-srcset="../files/sample.jpg">data-srcset</div></li>
+    <li><div class="card" data-banner="../files/sample.png">data-banner</div></li>
+    <li><div class="card" data-hero="../files/sample.jpg">data-hero</div></li>
+    <li><div class="card" data-avatar="../files/sample.png">data-avatar</div></li>
+  </ul>
+
+  <h2>⑤ メディア系 data-* （3種）</h2>
+  <ul class="files">
+    <li><div class="card" data-mp4="../files/sample.mp4">data-mp4</div></li>
+    <li><div class="card" data-webm="../files/sample.webm">data-webm</div></li>
+    <li><div class="card" data-mp3="../files/sample.mp3">data-mp3</div></li>
+  </ul>
+
+  <h2>期待される検出（重複排除後 14 ユニーク URL）</h2>
+  <ul>
+    <li><code>sample.mp4</code> — video[src] + video&gt;source + data-mp4 の 3 経路</li>
+    <li><code>sample.webm</code> — video&gt;source + data-webm</li>
+    <li><code>sample.ogv</code> — video&gt;source</li>
+    <li><code>sample.vtt</code> — video&gt;track</li>
+    <li><code>sample.mp3</code> — audio[src] + audio&gt;source + data-mp3</li>
+    <li><code>sample.ogg</code> — audio&gt;source（音声）</li>
+    <li><code>sample.wav</code> — audio&gt;source</li>
+    <li><code>sample.m4a</code> — audio&gt;source</li>
+    <li><code>sample.flac</code> — audio&gt;source</li>
+    <li><code>sample.svg</code> — SVG image[href] + SVG use[href] + data-icon</li>
+    <li><code>sample.svgz</code> — SVG image[xlink:href] + SVG use[xlink:href]</li>
+    <li><code>sample.png</code> — video[poster] + data-pic + data-cover-image + data-banner + data-avatar</li>
+    <li><code>sample.jpg</code> — data-poster + data-photo + data-srcset + data-hero</li>
+    <li><code>sample.webp</code> — data-cover</li>
+  </ul>
+</div>
+</body>
+</html>
